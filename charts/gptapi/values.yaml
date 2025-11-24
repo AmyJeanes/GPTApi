@@ -1,7 +1,7 @@
 replicaCount: 1
 useVirtualKubelet: false
 image:
-  repository: mattjeanes/gptapi
+  repository: ghcr.io/amyjeanes/gptapi
   tag: latest
   pullPolicy: Always
 ingress:

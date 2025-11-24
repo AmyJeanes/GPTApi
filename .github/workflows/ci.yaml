@@ -21,18 +21,15 @@ jobs:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
     
     - name: Build Docker image
-      run: docker build -t $DOCKER_USERNAME/gptapi:latest .
-      env:
-        DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+      run: docker build -t ghcr.io/amyjeanes/gptapi:latest .
       if: github.event.inputs.skipBuild != 'true'
 
     - name: Push Docker images
       run: |
-        echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-        docker push $DOCKER_USERNAME/gptapi:latest
+        echo $GITHUB_TOKEN | docker login ghcr.io --username amyjeanes --password-stdin
+        docker push ghcr.io/amyjeanes/gptapi:latest
       env:
-        DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: github.ref == 'refs/heads/main' && github.event.inputs.skipBuild != 'true'
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -60,7 +57,7 @@ jobs:
       working-directory: charts
         
     - name: Wait for certificate to be ready
-      uses: MattJeanes/Abyss-Infrastructure/.github/actions/wait-kube-certificate@main
+      uses: AmyJeanes/Abyss-Infrastructure/.github/actions/wait-kube-certificate@main
       with:
         name: "gptapi-tls"
 
