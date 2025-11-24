@@ -13,7 +13,7 @@
     {
       // Always want to use latest version
       "matchDepNames": [
-        "mattjeanes/gptapi"
+        "ghcr.io/amyjeanes/gptapi"
       ],
       "matchUpdateTypes": [
         "pinDigest"
