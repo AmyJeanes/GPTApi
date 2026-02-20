@@ -2,4 +2,4 @@ transformers==5.2.0
 falcon==4.2.0
 gunicorn==25.1.0
 gevent==25.9.1
-greenlet==3.3.1
+greenlet==3.3.2
