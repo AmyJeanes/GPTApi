@@ -56,17 +56,8 @@ spec:
           failureThreshold: 6
       volumes:
       - name: gpt
-        {{- if .Values.useVirtualKubelet }}
-        azureFile:
-          secretName: azure-storage-account
-          shareName: gpt
-        {{- else }}
-        csi:
-          driver: file.csi.azure.com
-          volumeAttributes:
-            secretName: azure-storage-account
-            shareName: gpt
-        {{- end }}
+        persistentVolumeClaim:
+          claimName: gptapi-models
       nodeSelector:
         kubernetes.io/os: linux
         {{- if .Values.useVirtualKubelet }}

@@ -38,7 +38,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-    
+
+    - name: Checkout Abyss-Infrastructure
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        repository: AmyJeanes/Abyss-Infrastructure
+        path: infrastructure
+
     - name: Connect to Kubernetes
       uses: AmyJeanes/Abyss-Infrastructure/.github/actions/connect-k8s@4eb24abb99d0e9de063167fa4000efab848f990c # main
       with:
@@ -46,7 +52,18 @@ jobs:
         hostname: "${{ vars.KUBERNETES_API_HOSTNAME }}"
         serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
         serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
-        
+
+    - name: Install persistent volume for gptapi-models
+      run: |
+        helm upgrade --install --wait --atomic --debug \
+          gptapi-models-persistentvolume . \
+          --namespace default \
+          --set name=gptapi-models \
+          --set disk.capacity=6Gi \
+          --set volumeHandle=gptapi-models \
+          --set dataEngine=v2
+      working-directory: infrastructure/kubernetes/charts/longhorn-persistentvolume
+
     - name: Install GPT Api
       run: |
         helm upgrade --install --wait --atomic --debug --timeout 10m0s \
