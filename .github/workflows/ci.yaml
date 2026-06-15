@@ -59,10 +59,8 @@ jobs:
           gptapi-models-persistentvolume . \
           --namespace default \
           --set name=gptapi-models \
-          --set disk.capacity=6Gi \
-          --set volumeHandle=gptapi-models \
-          --set dataEngine=v2
-      working-directory: infrastructure/kubernetes/charts/longhorn-persistentvolume
+          --set disk.capacity=10Gi
+      working-directory: infrastructure/kubernetes/charts/local-persistentvolume
 
     - name: Install GPT Api
       run: |
