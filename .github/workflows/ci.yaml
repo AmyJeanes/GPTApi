@@ -46,7 +46,7 @@ jobs:
         path: infrastructure
 
     - name: Connect to Kubernetes
-      uses: AmyJeanes/Abyss-Infrastructure/.github/actions/connect-k8s@dd83e3e064e51268402294e7646356df29a722a5 # main
+      uses: AmyJeanes/Abyss-Infrastructure/.github/actions/connect-k8s@16bf4ed2e93dbd005fb207cc1bb3881af5816400 # main
       with:
         kubeconfig: "${{ secrets.KUBECONFIG }}"
         hostname: "${{ vars.KUBERNETES_API_HOSTNAME }}"
@@ -72,10 +72,10 @@ jobs:
       working-directory: charts
         
     - name: Wait for certificate to be ready
-      uses: AmyJeanes/Abyss-Infrastructure/.github/actions/wait-kube-certificate@dd83e3e064e51268402294e7646356df29a722a5 # main
+      uses: AmyJeanes/Abyss-Infrastructure/.github/actions/wait-kube-certificate@16bf4ed2e93dbd005fb207cc1bb3881af5816400 # main
       with:
         name: "gptapi-tls"
 
     - name: Disconnect from Kubernetes
       if: always()
-      uses: AmyJeanes/Abyss-Infrastructure/.github/actions/disconnect-k8s@dd83e3e064e51268402294e7646356df29a722a5 # main
+      uses: AmyJeanes/Abyss-Infrastructure/.github/actions/disconnect-k8s@16bf4ed2e93dbd005fb207cc1bb3881af5816400 # main
