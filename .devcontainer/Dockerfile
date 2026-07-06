@@ -1,1 +1,1 @@
-FROM mcr.microsoft.com/devcontainers/python:dev-3.14@sha256:77afab5fba3cf38ac45290591ad6bbcf8b84a24fd8dc79b37940841fdb64f7f8
+FROM mcr.microsoft.com/devcontainers/python:dev-3.14@sha256:de716780f3b8937fc965dea9d5ad97a47861d2da71796c006189935382f94d09
