@@ -9,6 +9,17 @@
   "pinDigest": {
     "automerge": true
   },
+  "customManagers": [
+    {
+      // install.sh pins the CPU build from PyTorch's own index, outside requirements.txt
+      "customType": "regex",
+      "description": "torch, installed by install.sh",
+      "managerFilePatterns": ["/^install\\.sh$/"],
+      "matchStrings": ["torch==(?<currentValue>[0-9][^+\\s]*)\\+cpu"],
+      "depNameTemplate": "torch",
+      "datasourceTemplate": "pypi"
+    }
+  ],
   "packageRules": [
     {
       // Always want to use latest version
